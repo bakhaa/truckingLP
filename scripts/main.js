@@ -1,1 +1,1 @@
-"use strict";
+"use strict";$(document).ready(function(){$(".owl-carousel").owlCarousel({loop:!0,margin:50,autoplay:!0,responsive:{0:{items:1,nav:!0},700:{items:2,nav:!1},1e3:{items:3,nav:!0,loop:!1}}})});
