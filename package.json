@@ -6,6 +6,7 @@
     "node": ">=4"
   },
   "scripts": {
+    "dev": "gulp serve",
     "predeploy": "gulp",
     "deploy": "gh-pages -d dist"
   },
