@@ -32,16 +32,29 @@
     <![endif]-->
 
   <!-- header -->
-  <header class="header">
+  <div class="loader" >
+    <img src="images/svg-loader.svg" alt="loader">
+  </div>
+  <header class="header" id="header">
     <div class="header__logo"></div>
     <div class="header__contact">
       <p class="header__contact_phone">8 929 243-81-71</p>
+      <p class="header__contact_phone">8 34638 9-64-64</p>
     </div>
   </header>
   <!-- end header -->
 
+  <nav class="nav" id="nav">
+    <div class="nav__list">
+      <a class="nav__item link-header active" href="#header"><span class="title">Заказать</span><span class="dot"></span></a>
+      <a class="nav__item link-services" href="#services"><span class="title">Услуги</span><span class="dot"></span></a>
+      <a class="nav__item link-tarif" href="#tarif"><span class="title">Стоимость</span><span class="dot"></span></a>
+      <a class="nav__item link-partners" href="#partners"><span class="title">Партнеры</span><span class="dot"></span></a>
+    </div>
+  </nav>
+
   <!-- main -->
-  <section class="main">
+  <section class="main" id="main">
     <div class="main__action">
       <div class="description">
         <h1>Заказ грузоперевозок в <span class="city">г. Лянтор</span></h1>
@@ -59,12 +72,15 @@
     <div class="main__img">
       <img src="images/car.jpg" alt="car">
     </div>
+    <img src="images/scroll-down.svg" alt="croll-down" class="scroll-down">
   </section>
   <!-- end main -->
 
   <!-- services -->
-  <section class="services">
-    <h2 class="block-header">Услуги</h2>
+  <section class="services" id="services">
+    <div class="wrap-header">
+      <h2 class="block-header">Услуги</h2>
+    </div>
     <ul class="services__items">
       <li class="item">
         <div class="item-icon">
@@ -95,8 +111,10 @@
   <!-- end services -->
 
   <!-- tarifs -->
-  <section class="tarif">
-    <h2 class="block-header">Стоимость</h2>
+  <section class="tarif" id="tarif">
+    <div class="wrap-header">
+      <h2 class="block-header">Стоимость</h2>
+    </div>
     <div class="tarif__list">
       <div class="item">
         <div class="item-column">
@@ -106,7 +124,7 @@
           </div>
           <div class="item-decription">
             <div class="title">Цена:</div>
-            <div class="val">от 499р.</div>
+            <div class="val price">от 499р.</div>
           </div>
         </div>
         <div class="item-column item-photo">
@@ -122,7 +140,7 @@
           </div>
           <div class="item-decription">
             <div class="title">Цена:</div>
-            <div class="val">от 499р.</div>
+            <div class="val price">от 499р.</div>
           </div>
         </div>
         <div class="item-column item-photo">
@@ -138,7 +156,7 @@
           </div>
           <div class="item-decription">
             <div class="title">Цена:</div>
-            <div class="val">от 699р.</div>
+            <div class="val price">от 699р.</div>
           </div>
         </div>
         <div class="item-column item-photo">
@@ -151,8 +169,10 @@
   <!-- end tarifs -->
 
   <!-- partners -->
-  <section class="partners">
-    <h2 class="block-header">Партнеры</h2>
+  <section class="partners" id="partners">
+    <div class="wrap-header">
+      <h2 class="block-header">Партнеры</h2>
+    </div>
 
     <div class="partners__items owl-carousel owl-theme">
       <div class="item">
@@ -177,8 +197,12 @@
 
   <footer class="footer">
     <div class="footer__contact">
-      <p class="footer__contact_phone">8 929 243-81-71</p>
-      <button class="btn">Перезвоните мне</button>
+      <!-- <p class="footer__contact_phone">8 929 243-81-71</p> -->
+      <p class="footer__contact_year">2015-2018 © gruz-86.ru</p>
+      <p class="footer__contact_year">Все права защищены.</p>
+    </div>
+    <div class="wrap-btn">
+      <a href="#header" class="btn">Перезвоните мне</a>
     </div>
   </footer>
 
@@ -187,6 +211,7 @@
   <script src="/bower_components/modernizr/modernizr.js"></script>
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/owl.carousel/dist/owl.carousel.js"></script>
+
   <!-- endbower -->
   <!-- endbuild -->
 
