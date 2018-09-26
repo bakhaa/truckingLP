@@ -21,11 +21,11 @@ $(document).ready(function () {
     loader.classList.add('hide');
     setTimeout(() => {
       loader.style.zIndex = '-99999';
-    }, 2000);
+    }, 1000);
   }, 1000);
 
   if (window.location.hash) {
-    moveTo(window.location.hash);
+    markNavActive(window.location.hash);
   }
 
   $('a[href*="#"]').click(function (el) {
@@ -33,7 +33,7 @@ $(document).ready(function () {
     page.animate({
       scrollTop: $($.attr(this, 'href')).offset().top
     }, 400, 'swing', () => {
-      moveTo(window.location.hash);
+      markNavActive(window.location.hash);
     });
   });
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
   }
 
-  function moveTo(section) {
+  function markNavActive(section) {
     if (!section) return false;
     const nav = document.getElementById('nav');
     const moveTo = section.replace(/#/, 'link-')
@@ -63,5 +63,4 @@ $(document).ready(function () {
 
     navLink.classList.add('active');
   }
-
 });
