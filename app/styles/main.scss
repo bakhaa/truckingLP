@@ -60,6 +60,10 @@ section {
     cursor: pointer;
     transition: background-color .4s ease-in-out;
     border-color: hsla(0, 0%, 59%, .3);
+
+    &.active {
+      border-color: rgb(116, 77, 212);
+    }
   }
 
   .label {

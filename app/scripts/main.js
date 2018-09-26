@@ -28,14 +28,32 @@ $(document).ready(function () {
     markNavActive(window.location.hash);
   }
 
+  $('.input-wrap').click(function (el) {
+    $('#phone-input').focus();
+  })
+
   $('a[href*="#"]').click(function (el) {
     const page = $('html, body');
     page.animate({
       scrollTop: $($.attr(this, 'href')).offset().top
     }, 400, 'swing', () => {
+      if (el.currentTarget.classList.contains('cb-me')) {
+        $('#phone-input').focus();
+      }
       markNavActive(window.location.hash);
     });
   });
+
+  const phoneInput = document.getElementById('phone-input');
+  const inputWrap = document.querySelector('.cb-form .input-wrap');
+
+  phoneInput.onfocus = () => {
+    inputWrap.classList.add('active');
+  }
+
+  phoneInput.onblur = () => {
+    inputWrap.classList.remove('active');
+  }
 
   window.onscroll = () => {
     const scrolled = window.pageYOffset || document.documentElement.scrollTop;
