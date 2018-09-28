@@ -26,21 +26,6 @@ $(document).ready(function () {
 
   $('.input-wrap').click(function (el) {
     $('#phone-input').focus();
-  })
-
-  $('a[href*="#"]').click(function (el) {
-    const page = $('html, body');
-    const hash = el.target.parentNode.getAttribute('href');
-
-    page.animate({
-      scrollTop: $($.attr(this, 'href')).offset().top
-    }, 400, 'swing', () => {
-      if (el.currentTarget.classList.contains('cb-me')) {
-        $('#phone-input').focus();
-      }
-      markNavActive(hash);
-    });
-    return false;
   });
 
   const phoneInput = document.getElementById('phone-input');
@@ -54,35 +39,70 @@ $(document).ready(function () {
     inputWrap.classList.remove('active');
   }
 
+  class NavIndicator {
+    constructor(options) {
+      if (!options.sections || !Array(options.sections)) {
+        throw new Error('Required property: "sections", must be array');
+      };
+
+      this.activeNavPosition = 0;
+      this.sections = options.sections;
+      this.nodes = this.getNodes();
+      this.nav = options.nav || 'nav';
+      this.navNode = document.getElementById(this.nav);
+    }
+
+    getActiveNavPosition() { return this.activeNavPosition }
+
+    getNodes() {
+      let nodes = [];
+      nodes = this.sections.map(el => document.querySelector(el));
+      return nodes;
+    }
+
+    getSectionsPosition() {
+      let positions = [];
+      positions = this.nodes.map(el => el.getBoundingClientRect().top);
+      return positions;
+    }
+
+    checkActiveSection() {
+      const sectionsPosition = this.getSectionsPosition();
+      this.activeNavPosition = 0;
+      sectionsPosition.map((pos, idx) => {
+        if (pos <= 1) this.activeNavPosition = idx;
+      });
+      return this.activeNavPosition;
+    }
+
+    markNavActive(section) {
+      if (!section) return false;
+      const moveTo = section.replace(/#/, 'link-')
+      const navLink = this.navNode.querySelector(`.${moveTo}`);
+
+      const list = this.navNode.querySelectorAll('.nav__item');
+      list.forEach(el => {
+        if (el && el.classList.contains('active'))
+          el.classList.remove('active');
+      });
+
+      navLink.classList.add('active');
+    }
+  }
+
   const sections = ['#header', '#services', '#tarif', '#partners'];
-
-  function getSectonsNode() {
-    let nodes = [];
-    nodes = sections.map(el => document.querySelector(el));
-    return nodes;
-  }
-
-  function getSectionsPosition() {
-    const nodes = getSectonsNode()
-    let positions = [];
-    positions = nodes.map(el => el.getBoundingClientRect().top);
-    return positions;
-  }
-
-  function checkActiveSection() {
-    const sectionsPosition = getSectionsPosition();
-    let active = 0;
-    sectionsPosition.map((pos, idx) => {
-      if (pos <= 1 ) active = idx;
-    });
-    return active
-  }
+  const nav = document.getElementById('nav');
+  const navIndicator = new NavIndicator({ sections });
+  let activePosition = navIndicator.checkActiveSection();
 
   window.onscroll = () => {
     const scrolled = window.pageYOffset || document.documentElement.scrollTop;
-    const nav = document.getElementById('nav');
-    const active = checkActiveSection();
-    markNavActive(sections[active]);
+
+    const active = navIndicator.checkActiveSection();
+    if (active !== activePosition) {
+      navIndicator.markNavActive(sections[active]);
+      activePosition = active;
+    }
 
     if (scrolled > 200) {
       nav.style.top = '10px';
@@ -91,19 +111,18 @@ $(document).ready(function () {
     }
   }
 
-  function markNavActive(section) {
-    if (!section) return false;
-    const nav = document.getElementById('nav');
-    const moveTo = section.replace(/#/, 'link-')
-    const navLink = nav.querySelector(`.${moveTo}`);
+  $('a[href*="#"]').click(function (el) {
+    const page = $('html, body');
+    const hash = el.target.parentNode.getAttribute('href');
 
-    // remove class active from all childs
-    const list = nav.querySelectorAll('.nav__item');
-    list.forEach(el => {
-      if (el && el.classList.contains('active'))
-        el.classList.remove('active');
+    page.animate({
+      scrollTop: $($.attr(this, 'href')).offset().top
+    }, 400, 'swing', () => {
+      if (el.currentTarget.classList.contains('cb-me')) {
+        $('#phone-input').focus();
+      }
+      navIndicator.markNavActive(hash);
     });
-
-    navLink.classList.add('active');
-  }
+    return false;
+  });
 });
