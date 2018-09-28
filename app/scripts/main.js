@@ -24,24 +24,22 @@ $(document).ready(function () {
     }, 1000);
   }, 1000);
 
-  if (window.location.hash) {
-    markNavActive(window.location.hash);
-  }
-
   $('.input-wrap').click(function (el) {
     $('#phone-input').focus();
   })
 
   $('a[href*="#"]').click(function (el) {
     const page = $('html, body');
+    const hash = el.target.parentNode.getAttribute('href');
+
     page.animate({
       scrollTop: $($.attr(this, 'href')).offset().top
     }, 400, 'swing', () => {
       if (el.currentTarget.classList.contains('cb-me')) {
         $('#phone-input').focus();
       }
-      markNavActive(window.location.hash);
     });
+    return false;
   });
 
   const phoneInput = document.getElementById('phone-input');
@@ -55,9 +53,35 @@ $(document).ready(function () {
     inputWrap.classList.remove('active');
   }
 
+  const sections = ['#header', '#services', '#tarif', '#partners'];
+
+  function getSectonsNode() {
+    let nodes = [];
+    nodes = sections.map(el => document.querySelector(el));
+    return nodes;
+  }
+
+  function getSectionsPosition() {
+    const nodes = getSectonsNode()
+    let positions = [];
+    positions = nodes.map(el => el.getBoundingClientRect().top);
+    return positions;
+  }
+
+  function checkActiveSection() {
+    const sectionsPosition = getSectionsPosition();
+    let active = 0;
+    sectionsPosition.map((pos, idx) => {
+      if (pos <= 1 ) active = idx;
+    });
+    return active
+  }
+
   window.onscroll = () => {
     const scrolled = window.pageYOffset || document.documentElement.scrollTop;
     const nav = document.getElementById('nav');
+    const active = checkActiveSection();
+    markNavActive(sections[active]);
 
     if (scrolled > 200) {
       nav.style.top = '10px';
