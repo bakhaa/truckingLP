@@ -1,4 +1,4 @@
-# Responsive Landing Page for Trucking Company 🚚 
+# simple Landing Page for Trucking Company 🚚 
 
 ## Getting Started
 - Install: `yarn` or `npm`
