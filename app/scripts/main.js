@@ -38,6 +38,7 @@ $(document).ready(function () {
       if (el.currentTarget.classList.contains('cb-me')) {
         $('#phone-input').focus();
       }
+      markNavActive(hash);
     });
     return false;
   });
